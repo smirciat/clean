@@ -18,8 +18,8 @@
       "@cleaners-workspace/data-access-tasks": [
         "./libs/tasks/data-access-tasks/src/index.ts"
       ],
-      "@cleaners-workspace/tasks": ["./tasks/src/index.ts"],
-      "@cleaners-workspace/users": ["./users/src/index.ts"]
+      "@cleaners-workspace/tasks": ["./domains/tasks/src/index.ts"],
+      "@cleaners-workspace/users": ["./domains/users/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
