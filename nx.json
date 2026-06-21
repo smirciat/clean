@@ -36,10 +36,7 @@
       "inputs": [
         "production",
         "^production",
-        {
-          "json": "{workspaceRoot}/tsconfig.json",
-          "fields": ["extends", "files", "include"]
-        }
+        "{workspaceRoot}/tsconfig.json"
       ]
     }
   },
