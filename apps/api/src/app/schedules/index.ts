@@ -1,0 +1,1 @@
+export { registerSchedules } from './schedule.module';

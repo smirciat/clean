@@ -1,0 +1,66 @@
+<div class="max-w-5xl mx-auto p-6">
+  <h1 class="text-3xl font-bold text-slate-800 mb-4">
+    Cleaner's Schedules for {{date}}
+  </h1>
+
+  <hr class="mb-6 border-slate-300">
+
+  <div class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm">
+    <table class="min-w-full divide-y divide-slate-200">
+      <thead class="bg-slate-100">
+        <tr>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">
+            Title
+          </th>
+          <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
+            Completed
+          </th>
+          <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
+            Initials
+          </th>
+          <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
+            Time Completed
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-slate-100 bg-white">
+        @for (t of schedules(); track t.id) {
+          <tr class="hover:bg-slate-50">
+            <td class="px-4 py-3 text-slate-800">
+              {{t.title}}
+            </td>
+
+            <td class="px-4 py-3 text-center">
+              <input
+                type="checkbox"
+                [(ngModel)]="t.completed"
+                class="h-5 w-5 cursor-pointer rounded border-slate-300"
+              >
+            </td>
+
+            <td class="px-4 py-3 text-center">
+              <input
+                type="text"
+                [(ngModel)]="t.initials"
+                class="w-16 rounded border border-slate-300 px-2 py-1 text-center focus:border-blue-500 focus:outline-none"
+              >
+            </td>
+
+            <td class="px-4 py-3 text-center text-slate-600">
+              {{t.time}}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+<hr>
+<input
+  [value]="newTitle()"
+  (input)="newTitle.set($any($event.target).value)"
+  placeholder="New schedule"
+/>
+
+<button (click)="add()">Add</button>
