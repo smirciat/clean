@@ -56,7 +56,7 @@ npx nx g @nx/angular:lib --name=mylib  --directory=domains/mylib
 
 A word about this directory structure:  
     /api is the express app, it serves API routes  
-    /web is the Angular app, there is very little there as it defines the router paths and moves components from their sources, which are usually found in /domains, /operations, and /shared.  
+    /web is the Angular app, there is very little there as it defines the router paths and imports components from their sources, which are usually found in /domains, /operations, and /shared.  
     /domains are libraries that correspond to API routes and their database tables.  One domain per table.  
     /operations are libraries that encompass business logic and workflow.  They utilize components from more than one /domain library.  
     /shared are libraries for repeated common components that are utilized in multiple domains and operations.  
