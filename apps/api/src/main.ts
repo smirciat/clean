@@ -4,6 +4,7 @@ import http from 'http';
 import { initializeSocket } from './app/realtime/socket';
 import { sequelize } from './db';
 
+import { registerSchedules } from './app/schedules';
 import { registerTasks } from './app/tasks';
 import { registerUsers } from './app/users';
 
@@ -15,6 +16,7 @@ app.use(express.json());
 // 🔥 feature modules
 registerTasks(app);
 registerUsers(app);
+registerSchedules(app);
 
 
 async function bootstrap() {
