@@ -40,7 +40,10 @@ Schedule.init(
     },
     date: {type:DataTypes.STRING},
     time: {type:DataTypes.STRING},
-    interval: {type:DataTypes.STRING},
+    interval: {
+      type:DataTypes.STRING,
+      defaultValue: 'Daily'
+    },
     category: {type:DataTypes.STRING},
   },
   {

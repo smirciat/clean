@@ -1,5 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { ScheduleService } from '../data-access/schedule.service';
 import { ScheduleSocketService } from '../data-access/schedule-socket.service';
@@ -8,34 +9,51 @@ import { ScheduleDto } from '@cleaners-workspace/schedules';
 @Component({
   standalone: true,
   selector: 'app-schedule-page',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './schedule-page.component.html',
 })
 export class SchedulePageComponent {
   private schedulesApi = inject(ScheduleService);
   private socket = inject(ScheduleSocketService);
+  readonly intervals = [
+    '',
+    'Hourly',
+    'Daily',
+    'Weekly'
+  ] as const;
   date=new Date().toLocaleDateString();
   schedules = signal<any[]>([]);
   newTitle = signal('');
-
+  
   constructor() {
+    effect(()=>{
+      let updatedSchedules=this.schedules();
+      console.log(updatedSchedules);
+    });
+  }
+
+  ngOnInit() {
     this.load();
+    
 
     this.socket.onSchedulesChanged(() => {
       this.load();
     });
+    
+    
   }
 
   load() {
     this.schedulesApi.getAll().subscribe(schedules => {
-      this.schedules.set(schedules);
+      const sortedSchedules=schedules.sort((a,b)=>a.id-b.id);
+      this.schedules.set(sortedSchedules);
     });
   }
 
   add() {
     if (!this.newTitle()) return;
-
-    this.schedulesApi.create(this.newTitle()).subscribe(() => {
+    
+    this.schedulesApi.create(this.newTitle(),"Daily").subscribe(() => {
       this.newTitle.set('');
     });
   }
@@ -45,14 +63,10 @@ export class SchedulePageComponent {
     field: K,
     value: ScheduleDto[K]
   ) {
-    const normalizedValue =
-      field === 'interval' && value === 'None'
-        ? '' as ScheduleDto[K]
-        : value;
     this.schedules.update(list =>
       list.map(m =>
         m.id === id
-          ? { ...m, [field]: normalizedValue }
+          ? { ...m, [field]: value }
           : m
       )
     );

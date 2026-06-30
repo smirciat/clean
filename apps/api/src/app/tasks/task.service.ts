@@ -18,6 +18,7 @@ export class TaskService {
   async create(data: any) {
     return Task.create({
       title: data.title,
+      date: data.date
     });
   }
 

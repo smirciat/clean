@@ -1,13 +1,16 @@
 import { Router } from 'express';
 import { ScheduleService } from './schedule.service';
 import { Schedule } from './schedule.model';
+import { TaskService } from '../tasks/task.service';
 import { Task } from '../tasks/task.model';
 import { io } from '../realtime';
 
 const router = Router();
 const service = new ScheduleService();
+const taskService = new TaskService();
 
 router.get('/', async (_req, res) => {
+  //daily();
   res.json(await service.getAll());
 });
 
@@ -42,9 +45,11 @@ export async function daily(){
     where:{active:true,interval:'Daily'},
     raw:true
   });
+  console.log(allSchedules.length)
   for (const schedule of allSchedules){
-    let task={title:schedule.title,date:new Date().toLocaleString()};
-    await Task.create(task);
+    let task={title:schedule.title,date:new Date().toLocaleDateString()};
+    console.log(task)
+    await taskService.create(task);
   }
 }
 

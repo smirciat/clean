@@ -59,11 +59,26 @@
                 class="form-select"
               >
                 <option value="" disabled>Select an interval</option>
-              
-                @for (option of ["None","Hourly","Daily","Weekly"]; track option) {
-                  <option [value]="option">{{ option }}</option>
-                }
+                <option value="Hourly">Hourly</option>
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                
+                
               </select>
+              <!--<select
+                [value]="t.interval"
+                (change)="updateSchedule(t.id, 'interval', $any($event.target).value)"
+                class="form-select"
+              >
+                <option value="" disabled>Select an interval</option>
+                @for (option of intervals; track option) {
+                  <option [attr.value]="option">{{ option }}</option>
+                }
+                
+                
+              </select>-->
+            </td>
+            <td>
             </td>
             <td>
               <button (click)="update(t)" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-red-300 transition-colors duration-200">

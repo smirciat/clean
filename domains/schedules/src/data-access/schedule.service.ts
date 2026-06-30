@@ -10,8 +10,8 @@ export class ScheduleService {
     return this.http.get<ScheduleDto[]>('/api/schedules');
   }
 
-  create(title: string) {
-    return this.http.post<ScheduleDto>('/api/schedules', { title });
+  create(title: string, interval?: string) {
+    return this.http.post<ScheduleDto>('/api/schedules', { title, interval });
   }
 
   update(id: number, data: Partial<ScheduleDto>) {

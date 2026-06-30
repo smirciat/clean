@@ -5,7 +5,7 @@ import cron from 'node-cron';
 import { initializeSocket } from './app/realtime/socket';
 import { sequelize } from './db';
 
-import { registerSchedules } from './app/schedules';
+import { registerSchedules, daily } from './app/schedules';
 import { registerTasks } from './app/tasks';
 import { registerUsers } from './app/users';
 
@@ -20,9 +20,9 @@ registerUsers(app);
 registerSchedules(app);
 
 //cron job
-cron.schedule('0 1 * * *', () => {
+cron.schedule('1 1 * * *', () => {
     console.log('Running daily task at:', new Date().toLocaleString());
-    
+    daily();
 });
 
 

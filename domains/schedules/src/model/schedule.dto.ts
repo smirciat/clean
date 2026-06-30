@@ -2,8 +2,8 @@ export interface ScheduleDto {
   id: number;
   title: string;
   active?: boolean;
-  date?: string;
-  time?: string;
+  date?: string | null;
+  time?: string | null;
   interval?: string;
-  category?: string;
+  category?: string | null;
 }
