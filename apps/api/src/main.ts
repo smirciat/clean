@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
+import cron from 'node-cron';
 import { initializeSocket } from './app/realtime/socket';
 import { sequelize } from './db';
 
@@ -17,6 +18,12 @@ app.use(express.json());
 registerTasks(app);
 registerUsers(app);
 registerSchedules(app);
+
+//cron job
+cron.schedule('0 1 * * *', () => {
+    console.log('Running daily task at:', new Date().toLocaleString());
+    
+});
 
 
 async function bootstrap() {

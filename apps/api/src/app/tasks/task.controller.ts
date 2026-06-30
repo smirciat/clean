@@ -9,6 +9,11 @@ router.get('/', async (_req, res) => {
   res.json(await service.getAll());
 });
 
+router.post('/todaysTasks', async (_req, res) => {
+  if (!_req.body.date) res.status(500).json('need to include dateString');
+  res.json(await service.getTodaysTasks(_req.body.date));
+});
+
 router.get('/:id', async (req, res) => {
   const task = await service.getById(Number(req.params.id));
   if (!task) return res.status(404).json({ message: 'Not found' });

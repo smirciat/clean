@@ -1,14 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { ScheduleService } from '../data-access/schedule.service';
 import { ScheduleSocketService } from '../data-access/schedule-socket.service';
+import { ScheduleDto } from '@cleaners-workspace/schedules';
 
 @Component({
   standalone: true,
   selector: 'app-schedule-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './schedule-page.component.html',
 })
 export class SchedulePageComponent {
@@ -39,11 +39,30 @@ export class SchedulePageComponent {
       this.newTitle.set('');
     });
   }
-
-  toggle(schedule: any) {
-    this.schedulesApi
-      .update(schedule.id, { completed: !schedule.completed })
-      .subscribe();
+  
+  updateSchedule<K extends keyof ScheduleDto>(
+    id: number,
+    field: K,
+    value: ScheduleDto[K]
+  ) {
+    const normalizedValue =
+      field === 'interval' && value === 'None'
+        ? '' as ScheduleDto[K]
+        : value;
+    this.schedules.update(list =>
+      list.map(m =>
+        m.id === id
+          ? { ...m, [field]: normalizedValue }
+          : m
+      )
+    );
+    this.update(this.schedules().find(t => t.id === id)!,field.toString());
+  }
+  
+  update(schedule: ScheduleDto, field?:string) {
+    this.schedulesApi.update(schedule.id,schedule).subscribe(() => {
+      console.log('schedule updated');
+    });
   }
 
   remove(id: number) {

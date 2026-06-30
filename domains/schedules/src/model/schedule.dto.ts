@@ -1,5 +1,5 @@
 export interface ScheduleDto {
-  id?: number;
+  id: number;
   title: string;
   active?: boolean;
   date?: string;

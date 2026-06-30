@@ -1,7 +1,18 @@
 <div class="max-w-5xl mx-auto p-6">
+  <h2>Add Task to Master Schedule</h2>
+  <input
+    [value]="newTitle()"
+    (blur)="newTitle.set($any($event.target).value)"
+    class="w-80 rounded border border-slate-300 bg-white px-2 py-1 text-center focus:border-blue-500 focus:outline-none"
+  >
+  <button (click)="add()" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg focus:ring-4 focus:outline-none focus:ring-green-300 transition-colors duration-200">
+    Add to Schedule
+  </button>
+  <hr>
   <h1 class="text-3xl font-bold text-slate-800 mb-4">
-    Cleaner's Schedules for {{date}}
+    Master Cleaner`s Schedule
   </h1>
+  <h3>Each task will be assigned once per day</h3>
 
   <hr class="mb-6 border-slate-300">
 
@@ -13,13 +24,10 @@
             Title
           </th>
           <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
-            Completed
+            Active
           </th>
           <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
-            Initials
-          </th>
-          <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
-            Time Completed
+            Interval
           </th>
         </tr>
       </thead>
@@ -27,28 +35,45 @@
       <tbody class="divide-y divide-slate-100 bg-white">
         @for (t of schedules(); track t.id) {
           <tr class="hover:bg-slate-50">
-            <td class="px-4 py-3 text-slate-800">
-              {{t.title}}
-            </td>
+            <textarea rows="1" 
+                [value]="t.title"
+                (blur)="updateSchedule(t.id, 'title', $any($event.target).value)" 
+                #myTextarea (keydown.enter)="myTextarea.blur()"
+                class="w-64 resize-none rounded-md border border-slate-300 p-2 text-sm focus:outline-none">
+                
+              </textarea>
 
             <td class="px-4 py-3 text-center">
               <input
                 type="checkbox"
-                [(ngModel)]="t.completed"
+                [checked]="t.active"
+                (change)="updateSchedule(t.id, 'active', $any($event.target).checked)" 
                 class="h-5 w-5 cursor-pointer rounded border-slate-300"
               >
             </td>
-
-            <td class="px-4 py-3 text-center">
-              <input
-                type="text"
-                [(ngModel)]="t.initials"
-                class="w-16 rounded border border-slate-300 px-2 py-1 text-center focus:border-blue-500 focus:outline-none"
+            
+            <td>
+              <select
+                [value]="t.interval"
+                (change)="updateSchedule(t.id, 'interval', $any($event.target).value)"
+                class="form-select"
               >
+                <option value="" disabled>Select an interval</option>
+              
+                @for (option of ["None","Hourly","Daily","Weekly"]; track option) {
+                  <option [value]="option">{{ option }}</option>
+                }
+              </select>
             </td>
-
-            <td class="px-4 py-3 text-center text-slate-600">
-              {{t.time}}
+            <td>
+              <button (click)="update(t)" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-red-300 transition-colors duration-200">
+                Save
+              </button>
+            </td>
+            <td>
+              <button (click)="remove(t.id)" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 transition-colors duration-200">
+                Delete
+              </button>
             </td>
           </tr>
         }
@@ -56,11 +81,3 @@
     </table>
   </div>
 </div>
-<hr>
-<input
-  [value]="newTitle()"
-  (input)="newTitle.set($any($event.target).value)"
-  placeholder="New schedule"
-/>
-
-<button (click)="add()">Add</button>

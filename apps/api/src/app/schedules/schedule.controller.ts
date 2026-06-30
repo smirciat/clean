@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { ScheduleService } from './schedule.service';
+import { Schedule } from './schedule.model';
+import { Task } from '../tasks/task.model';
 import { io } from '../realtime';
 
 const router = Router();
@@ -34,6 +36,17 @@ router.delete('/:id', async (req, res) => {
   io?.emit('schedulesChanged');
   res.status(204).send();
 });
+
+export async function daily(){
+  const allSchedules=await Schedule.findAll({
+    where:{active:true,interval:'Daily'},
+    raw:true
+  });
+  for (const schedule of allSchedules){
+    let task={title:schedule.title,date:new Date().toLocaleString()};
+    await Task.create(task);
+  }
+}
 
 export function registerScheduleRoutes() {
   return router;

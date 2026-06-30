@@ -1,6 +1,23 @@
 <div class="max-w-5xl mx-auto p-6">
+    <!-- Native Date Input -->
+    <h1 class="text-xl font-bold text-slate-800 mb-4">
+      Change Date Here:
+      <input 
+        style="background-color:white"
+        type="date"
+        [value]="date()"
+        (input)="date.set($any($event.target.value))"
+      />
+    
+    </h1>
+  
+    <!-- Optional Calendar Icon Trigger for Browsers without default picker -->
+    <!--<button type="button" class="calendar-btn" (click)="openNativePicker()">
+      📅
+    </button>-->
   <h1 class="text-3xl font-bold text-slate-800 mb-4">
-    Cleaner's Tasks for {{date}}
+    Cleaner's Tasks for {{date() | date: 'M/dd/yyyy'}}
+    
   </h1>
 
   <hr class="mb-6 border-slate-300">
@@ -10,40 +27,61 @@
       <thead class="bg-slate-100">
         <tr>
           <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">
+            ID
+          </th>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">
             Title
+          </th>
+          <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
+            Initials
+          </th>
+          <th>
+            Comment
           </th>
           <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
             Completed
           </th>
           <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
-            Initials
-          </th>
-          <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
             Time Completed
           </th>
+          <th></th>
         </tr>
       </thead>
 
       <tbody class="divide-y divide-slate-100 bg-white">
         @for (t of tasks(); track t.id) {
-          <tr class="hover:bg-slate-50">
+          <tr class="bg-[#fffccc] hover:bg-[#fffbb8]" >
+            <td class="px-4 py-3 text-slate-800">
+              {{t.id}}
+            </td>
             <td class="px-4 py-3 text-slate-800">
               {{t.title}}
             </td>
 
             <td class="px-4 py-3 text-center">
               <input
-                type="checkbox"
-                [(ngModel)]="t.completed"
-                class="h-5 w-5 cursor-pointer rounded border-slate-300"
+                [value]="t.initials"
+                (blur)="updateTask(t.id, 'initials', $any($event.target).value)"
+                #myInput (keydown.enter)="myInput.blur()"
+                class="w-16 rounded border border-slate-300 px-2 py-1 text-center focus:border-blue-500 focus:outline-none"
               >
+            </td>
+            <td>
+              <textarea rows="1" 
+                [value]="t.comment"
+                (blur)="updateTask(t.id, 'comment', $any($event.target).value)" 
+                #myTextarea (keydown.enter)="myTextarea.blur()"
+                class="w-64 resize-none rounded-md border border-slate-300 p-2 text-sm focus:outline-none">
+                
+              </textarea>
             </td>
 
             <td class="px-4 py-3 text-center">
               <input
-                type="text"
-                [(ngModel)]="t.initials"
-                class="w-16 rounded border border-slate-300 px-2 py-1 text-center focus:border-blue-500 focus:outline-none"
+                type="checkbox"
+                [checked]="t.completed"
+                (change)="updateTask(t.id, 'completed', $any($event.target).checked)" 
+                class="h-5 w-5 cursor-pointer rounded border-slate-300"
               >
             </td>
 
@@ -57,10 +95,10 @@
   </div>
 </div>
 <hr>
-<input
+<!--<input
   [value]="newTitle()"
   (input)="newTitle.set($any($event.target).value)"
   placeholder="New task"
 />
 
-<button (click)="add()">Add</button>
+<button (click)="add()">Add</button>-->

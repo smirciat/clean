@@ -4,6 +4,12 @@ export class TaskService {
   async getAll() {
     return Task.findAll();
   }
+  
+  async getTodaysTasks(dateString:string) {
+    return Task.findAll({
+      where:{date:dateString}
+    });
+  }
 
   async getById(id: number) {
     return Task.findByPk(id);

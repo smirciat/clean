@@ -9,6 +9,10 @@ export class TaskService {
   getAll() {
     return this.http.get<TaskDto[]>('/api/tasks');
   }
+  
+  getTodaysTasks(date:string) {
+    return this.http.post<TaskDto[]>('/api/tasks/todaysTasks',{date});
+  }
 
   create(title: string) {
     return this.http.post<TaskDto>('/api/tasks', { title });

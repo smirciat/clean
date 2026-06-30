@@ -52,3 +52,5 @@ vite.config.*.timestamp*
 .env
 .env.*
 !.env.example
+
+todo.txt
