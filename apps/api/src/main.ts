@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 dotenv.config({
   path: '.env'
 });
+console.log('cwd:', process.cwd());
+console.log('POSTGRES_PASSWORD:', process.env.POSTGRES_PASSWORD ? 'loaded' : 'missing');
 import express from 'express';
 import cors from 'cors';
 import http from 'http';

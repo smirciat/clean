@@ -2,6 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'my-express-api',
+      cwd: '/home/andy/clean',
       // Runs using the global 'pm2' npm package (or standard npx)
       script: 'dist/apps/api/main.js',
       // nx command to serve the api project
