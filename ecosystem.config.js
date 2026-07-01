@@ -5,7 +5,7 @@ module.exports = {
       // Runs using the global 'pm2' npm package (or standard npx)
       script: 'npx',
       // nx command to serve the api project
-      args: 'nx serve api --configuration=production',
+      args: 'npx nx serve api --configuration=production',
       // Ensure the correct Node.js version is forced
       interpreter: '/home/andy/.nvm/versions/node/v24.16.0/bin/node', 
       instances: 1,
