@@ -60,6 +60,7 @@
 
             <td class="px-4 py-3 text-center">
               <input
+                style="background-color:white"
                 [value]="t.initials"
                 (blur)="updateTask(t.id, 'initials', $any($event.target).value)"
                 #myInput (keydown.enter)="myInput.blur()"
@@ -68,6 +69,7 @@
             </td>
             <td>
               <textarea rows="1" 
+                style="background-color:white"
                 [value]="t.comment"
                 (blur)="updateTask(t.id, 'comment', $any($event.target).value)" 
                 #myTextarea (keydown.enter)="myTextarea.blur()"
@@ -78,6 +80,7 @@
 
             <td class="px-4 py-3 text-center">
               <input
+                style="background-color:white"
                 type="checkbox"
                 [checked]="t.completed"
                 (change)="updateTask(t.id, 'completed', $any($event.target).checked)" 
@@ -94,11 +97,3 @@
     </table>
   </div>
 </div>
-<hr>
-<!--<input
-  [value]="newTitle()"
-  (input)="newTitle.set($any($event.target).value)"
-  placeholder="New task"
-/>
-
-<button (click)="add()">Add</button>-->
