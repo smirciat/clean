@@ -1,3 +1,4 @@
+import './config';
 import { Sequelize } from 'sequelize';
 
 console.log({
