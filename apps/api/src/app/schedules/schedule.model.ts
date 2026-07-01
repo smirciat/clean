@@ -9,9 +9,10 @@ interface ScheduleAttributes {
   time: string;
   interval: string;
   category: string;
+  location: string;
 }
 
-interface ScheduleCreationAttributes extends Optional<ScheduleAttributes, 'id' | 'active' | 'date' | 'time' | 'interval' | 'category' > {}
+interface ScheduleCreationAttributes extends Optional<ScheduleAttributes, 'id' | 'active' | 'location' | 'date' | 'time' | 'interval' | 'category' > {}
 
 export class Schedule extends Model<ScheduleAttributes, ScheduleCreationAttributes> {
   declare id: number;
@@ -21,6 +22,7 @@ export class Schedule extends Model<ScheduleAttributes, ScheduleCreationAttribut
   declare time: string;
   declare interval: string;
   declare category: string;
+  declare location: string;
 }
 
 Schedule.init(
@@ -45,6 +47,7 @@ Schedule.init(
       defaultValue: 'Daily'
     },
     category: {type:DataTypes.STRING},
+    location: {type:DataTypes.STRING},
   },
   {
     sequelize,

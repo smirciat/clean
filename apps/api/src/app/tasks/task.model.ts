@@ -9,10 +9,11 @@ interface TaskAttributes {
   time: string;
   initials: string;
   category: string;
+  location: string;
   comment: string;
 }
 
-interface TaskCreationAttributes extends Optional<TaskAttributes, 'comment' | 'completed' | 'date' | 'time' | 'initials' | 'category' > {}
+interface TaskCreationAttributes extends Optional<TaskAttributes, 'comment' | 'completed' | 'date' | 'time' | 'initials' | 'location' | 'category' > {}
 
 export class Task extends Model<TaskAttributes, TaskCreationAttributes> {
   declare id: number;
@@ -23,6 +24,7 @@ export class Task extends Model<TaskAttributes, TaskCreationAttributes> {
   declare initials: string;
   declare category: string;
   declare commment: string;
+  declare location: string;
 }
 
 Task.init(
@@ -46,6 +48,7 @@ Task.init(
     initials: {type:DataTypes.STRING},
     category: {type:DataTypes.STRING},
     comment: {type:DataTypes.STRING},
+    location: {type:DataTypes.STRING},
   },
   {
     sequelize,

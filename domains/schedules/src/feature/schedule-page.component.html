@@ -29,6 +29,12 @@
             Active
           </th>
           <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
+            Location
+          </th>
+          <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
+            Category
+          </th>
+          <th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">
             Interval
           </th>
         </tr>
@@ -53,6 +59,34 @@
                 class="h-5 w-5 cursor-pointer rounded border-slate-300"
               >
             </td>
+            <td>
+              <select
+                [value]="t.location"
+                (change)="updateSchedule(t.id, 'location', $any($event.target).value)"
+                class="form-select"
+              >
+                <option value="" disabled>Select a Location</option>
+                <option value="HANGAR2">HANGAR 2</option>
+                <option value="HANGAR3">HANGAR 3</option>
+                <option value="AIRCRAFTCLEANING">AIRCRAFT CLEANING</option>
+                
+                
+              </select>
+            </td>
+            <td>
+              <select
+                [value]="t.category"
+                (change)="updateSchedule(t.id, 'category', $any($event.target).value)"
+                class="form-select"
+              >
+                <option value="" disabled>Select a Category</option>
+                <option value="Hourly">Hourly</option>
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                
+                
+              </select>
+            </td>
             
             <td>
               <select
@@ -67,18 +101,6 @@
                 
                 
               </select>
-              <!--<select
-                [value]="t.interval"
-                (change)="updateSchedule(t.id, 'interval', $any($event.target).value)"
-                class="form-select"
-              >
-                <option value="" disabled>Select an interval</option>
-                @for (option of intervals; track option) {
-                  <option [attr.value]="option">{{ option }}</option>
-                }
-                
-                
-              </select>-->
             </td>
             <td>
             </td>

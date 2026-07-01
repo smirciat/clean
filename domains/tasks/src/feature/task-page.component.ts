@@ -26,10 +26,6 @@ export class TaskPageComponent {
   constructor() {
     effect(()=>{
       let updatedDate = this.date();
-      if (typeof updatedDate==='string') {
-      }
-      console.log(updatedDate)
-      console.log(this.date());
       if (updatedDate) {
         untracked(()=>{this.load()})
       }
@@ -45,7 +41,12 @@ export class TaskPageComponent {
     let newDate=new Date(this.date()+"T00:00:00");
     this.tasksApi.getTodaysTasks(newDate.toLocaleDateString()).subscribe(tasks=> {
       this.tasks.set(tasks);
-      tasks.sort((a,b)=>a.id-b.id);
+      tasks.sort((a,b)=>{
+        if (!a.location) return 1;
+        if (!b.location) return -1;
+        return a.location.localeCompare(b.location);
+        return a.id-b.id
+      });
     });
   }
 

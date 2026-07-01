@@ -6,4 +6,5 @@ export interface ScheduleDto {
   time?: string | null;
   interval?: string;
   category?: string | null;
+  location?: string | null;
 }

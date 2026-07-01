@@ -49,7 +49,17 @@
       </thead>
 
       <tbody class="divide-y divide-slate-100 bg-white">
-        @for (t of tasks(); track t.id) {
+        @for (t of tasks(); track t.id; let i = $index) {
+          @let isNewLocation = i === 0 || tasks()[i - 1].location !== t.location;   
+          @if (isNewLocation) {
+            <tr class="bg-[#fffccc] hover:bg-[#fffbb8]"><td colspan="7"  class="px-4 py-3 text-slate-800">
+              @if (t.location) {
+                <h4 class="text-xl font-bold text-slate-800 mb-4">{{t.location}}</h4>
+              } @else {
+                <h4 class="text-xl font-bold text-slate-800 mb-4">no location specified</h4>
+              }
+            </td></tr>
+          }
           <tr class="bg-[#fffccc] hover:bg-[#fffbb8]" >
             <td class="px-4 py-3 text-slate-800">
               {{t.id}}

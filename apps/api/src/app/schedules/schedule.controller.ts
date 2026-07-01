@@ -47,7 +47,9 @@ export async function daily(){
   });
   console.log(allSchedules.length)
   for (const schedule of allSchedules){
-    let task={title:schedule.title,date:new Date().toLocaleDateString()};
+    let task=JSON.parse(JSON.stringify(schedule));
+    task.date=new Date().toLocaleDateString()
+    delete task.id;
     console.log(task)
     await taskService.create(task);
   }

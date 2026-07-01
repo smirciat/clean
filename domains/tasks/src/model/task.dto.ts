@@ -7,4 +7,5 @@ export interface TaskDto {
   initials?: string;
   category?: string;
   comment?: string;
+  location?: string;
 }

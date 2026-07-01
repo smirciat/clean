@@ -10,9 +10,7 @@ export class ScheduleService {
   }
 
   async create(data: any) {
-    return Schedule.create({
-      title: data.title,
-    });
+    return Schedule.create(data);
   }
 
   async update(id: number, data: any) {

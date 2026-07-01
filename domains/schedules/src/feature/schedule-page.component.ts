@@ -1,6 +1,5 @@
 import { Component, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { ScheduleService } from '../data-access/schedule.service';
 import { ScheduleSocketService } from '../data-access/schedule-socket.service';
@@ -9,7 +8,7 @@ import { ScheduleDto } from '@cleaners-workspace/schedules';
 @Component({
   standalone: true,
   selector: 'app-schedule-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './schedule-page.component.html',
 })
 export class SchedulePageComponent {
