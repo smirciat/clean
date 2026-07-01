@@ -3,8 +3,6 @@ import dotenv from 'dotenv';
 dotenv.config({
   path: '.env'
 });
-console.log('cwd:', process.cwd());
-console.log('POSTGRES_PASSWORD:', process.env.POSTGRES_PASSWORD ? 'loaded' : 'missing');
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
@@ -34,10 +32,7 @@ cron.schedule('1 1 * * *', () => {
 
 
 async function bootstrap() {
-  console.log({
-    password: process.env.POSTGRES_PASSWORD,
-    type: typeof process.env.POSTGRES_PASSWORD,
-  });
+  
   await sequelize.authenticate();
   await sequelize.sync();
   
