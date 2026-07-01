@@ -34,6 +34,10 @@ cron.schedule('1 1 * * *', () => {
 
 
 async function bootstrap() {
+  console.log({
+    password: process.env.POSTGRES_PASSWORD,
+    type: typeof process.env.POSTGRES_PASSWORD,
+  });
   await sequelize.authenticate();
   await sequelize.sync();
   
